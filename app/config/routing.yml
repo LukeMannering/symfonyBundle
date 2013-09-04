@@ -1,0 +1,4 @@
+example_address_book:
+    resource: "@ExampleAddressBookBundle/Resources/config/routing.yml"
+    prefix:   /
+

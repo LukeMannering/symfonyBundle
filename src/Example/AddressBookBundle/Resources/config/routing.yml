@@ -1,0 +1,3 @@
+example_address_book_homepage:
+    pattern:  /addressbook
+    defaults: { _controller: ExampleAddressBookBundle:Default:index }
