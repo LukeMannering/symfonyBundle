@@ -1,0 +1,38 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Address Book{% endblock%}
+
+{% block content %}
+    {{ include('ExampleAddressBookBundle:People:header.html.twig') }}
+
+    <table>
+        <tr>
+            <th>First Name</th>  
+            <th>Last Name</th>  
+            <th>Address Line 1</th>  
+            <th>Address Line 2</th>  
+            <th>City</th>  
+            <th>Postcode</th>  
+            <th>Telephone Home</th>  
+            <th>Telephone Mobile</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>   
+        </tr>
+    
+    {% for person in people %}
+        <tr>
+            <td>{{ person.firstName|e }}</td>
+            <td>{{ person.lastName|e }}</td>
+            <td>{{ person.addressLine1|e }}</td>
+            <td>{{ person.addressLine2|e }}</td>
+            <td>{{ person.city|e }}</td>
+            <td>{{ person.postcode|e }}</td>
+            <td>{{ person.telephoneHome|e }}</td>
+            <td>{{ person.telephoneMobile|e }}</td>
+            <td><a href="{{ path('addressbook_update', {'id': person.id}) }}" >Edit</a></td>
+            <td><a href="{{ path('addressbook_delete', {'id': person.id}) }}" >Delete</a></td>
+        </tr>
+    {% endfor %}
+    
+    </table>
+{% endblock %}

@@ -1,10 +1,10 @@
-example_address_book_homepage:
-    pattern:  /addressbook
-    defaults: { _controller: ExampleAddressBookBundle:People:list }
-    
 addressbook_create:
     pattern:  /addressbook/create
     defaults: { _controller: ExampleAddressBookBundle:People:create }
+
+addressbook_list:
+    pattern:  /addressbook
+    defaults: { _controller: ExampleAddressBookBundle:People:list }
     
 addressbook_update:
     pattern:  /addressbook/update/{id}

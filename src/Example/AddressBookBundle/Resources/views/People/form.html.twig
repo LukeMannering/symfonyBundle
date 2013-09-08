@@ -1,11 +1,15 @@
-{% for flashMessage in app.session.flashbag.get('notice') %}
-    <div class="flash-notice">
-        {{ flashMessage }}
-    </div>
-{% endfor %}
+{% extends '::base.html.twig' %}
 
-<form action="{{ path('addressbook_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
+{% block title %}Address Book{% endblock%}
 
-    <input type="submit" value="Create"/>
-</form>
+{% block content %}
+
+    {{ include('ExampleAddressBookBundle:People:header.html.twig') }}
+    
+    <form action="{{ formAction }}" method="post" {{ form_enctype(form) }}>
+        
+        {{ form_widget(form) }}
+    
+        <input type="submit" value="Save"/>
+    </form>
+{% endblock%}

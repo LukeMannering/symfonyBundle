@@ -5,6 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -35,7 +36,7 @@ class People
     protected $addressLine1;
     
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $addressLine2;
     
@@ -45,23 +46,25 @@ class People
     protected $city;
     
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=10)
      */
     protected $postcode;
     
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $telephoneHome;
     
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $telephoneMobile;   
     
 
     /**
      * Validation Constraints
+     * 
+     * @param ClassMetadata $metadata
      */
     public static function loadValidatorMetadata(ClassMetadata $metadata){
     
@@ -69,17 +72,17 @@ class People
         $metadata->addPropertyConstraint('firstName', new NotBlank());
         $metadata->addPropertyConstraint('lastName', new NotBlank());
         $metadata->addPropertyConstraint('addressLine1', new NotBlank());
-        $metadata->addPropertyConstraint('addressLine2', new NotBlank());
         $metadata->addPropertyConstraint('city', new NotBlank());
         $metadata->addPropertyConstraint('postcode', new NotBlank());
-        $metadata->addPropertyConstraint('telephoneHome', new NotBlank());
-        $metadata->addPropertyConstraint('telephoneMobile', new NotBlank());
         
         
-        // String Validation
-//         $metadata->addPropertyConstraint('email', new Assert\Email(array(
-//                 'message' => 'The email "{{ value }}" is not a valid email'
-//         )));
+        // Validate Phone Numbers
+        $telephoneRegex = '/^[0-9\s\-\+\(\)]+$/';
+        $metadata->addPropertyConstraint('telephoneHome', new Assert\Regex(array('pattern' => $telephoneRegex)));
+        $metadata->addPropertyConstraint('telephoneMobile', new Assert\Regex(array('pattern' => $telephoneRegex)));
+        
+        // Validate Postcode
+        $metadata->addPropertyConstraint('postcode', new Assert\Regex(array('pattern' => '/^([A-Za-z0-9\s]){0,10}$/')));
     
     }
 
